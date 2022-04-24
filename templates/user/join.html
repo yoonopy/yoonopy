@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<!-- css -->
+<link rel="stylesheet" href="{% static 'css/join-css.css' %}"/>
+
+<body>
+
+<body style="background-color: #FAFAFA;height: 100%; text-align: center;">
+<div class="background_box">
+    <div class="join_body">
+        <span class="material-icons" style="margin-top: 30px;">auto_awesome 인별그램</span>
+        <div style="font-size:17px; font-weight:600; line-height: 20px; text-align: center; color: rgba(142,142,142,1); margin: 30px 40px 20px">
+            친구들의 사진과 동영상을 보려면 가입하세요.
+        </div>
+        <div class="form-floating mb-2 floating_form">
+            <input type="email" class="floating_input form-control" id="inputEmail">
+            <label for="floatingEmail" class="floating_label">이메일 주소</label>
+        </div>
+        <div class="form-floating mb-2 floating_form">
+            <input type="text" class="floating_input form-control" id="inputName">
+            <label for="floatingName" class="floating_label">성명</label>
+        </div>
+        <div class="form-floating mb-2 floating_form">
+            <input type="text" class="floating_input form-control" id="inputUserId">
+            <label for="floatingUserId" class="floating_label">사용자 이름</label>
+        </div>
+        <div class="form-floating mb-3 floating_form">
+            <input type="password" class="floating_input form-control" id="inputPassword">
+            <label for="floatingPassword" class="floating_label">비밀번호</label>
+        </div>
+        <div class="floating_form mb-3">
+            <button id="button_join"  type="button" class="btn btn-primary" style="width: 100%"> 가입 </button>
+        </div>
+    </div>
+    <div class="move_login">
+        계정이 있으신가요? <a href="{% url 'login' %}">로그인</a>
+    </div>
+</div>
+
+<script>
+
+$('#button_join').on('click',()=>{
+
+    let email = $('#inputEmail').val();
+    let name = $('#inputName').val();
+    let user_id = $('#inputUserId').val();
+    let password = $('#inputPassword').val();
+
+    console.log('이멜 :' + email + ', 이름 :'  + name + ', 사용자이름 :'  +  user_id + ', 비밀번호 :'  +  password);
+
+    $.ajax({
+        url: "/user/join",
+        data: {
+            email   : email,
+            password: password,
+            user_id : user_id,
+            name    : name
+        },
+        method: "POST",
+        dataType: "json",
+        success: function (data){
+            alert(data.message);
+            location.replace('{% url "login" %}');
+        },
+        error:function (request, status, error){
+            let data = JSON.parse(request.responseText);
+            console.log(data.message);
+            alert(data.message);
+        }
+    });
+});
+
+</script>
+
+</body>
+</html>
+{% endblock content %}
+<!-- {% url 'login' %} -->
