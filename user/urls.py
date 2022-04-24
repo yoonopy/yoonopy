@@ -1,5 +1,4 @@
 from django.urls import path
-# from .views import Join
 from . import views
 
 urlpatterns = [

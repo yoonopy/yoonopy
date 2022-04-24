@@ -12,11 +12,11 @@
     <div class="login_body">
         <span class="material-icons" style="margin-top: 30px; margin-bottom:45px;">auto_awesome 인별그램</span>
         <div class="form-floating mb-2 floating_form">
-            <input type="email" class="floating_input form-control" id="floatingEmail">
+            <input type="email" class="floating_input form-control" id="inputEmail">
             <label for="floatingEmail" class="floating_label">이메일 주소</label>
         </div>
         <div class="form-floating mb-3 floating_form">
-            <input type="password" class="floating_input form-control" id="floatingPassword">
+            <input type="password" class="floating_input form-control" id="inputPassword">
             <label for="floatingPassword" class="floating_label">비밀번호</label>
         </div>
         <div class="floating_form mb-3">
@@ -27,6 +27,35 @@
         계정이 없으신가요? <a href="{% url 'join' %}">가입하기</a>
     </div>
 </div>
+
+<script>
+
+$('#button_login').on('click',()=>{
+
+    let email = $('#inputEmail').val();
+    let password = $('#inputPassword').val();
+
+    $.ajax({
+        method: "POST",
+        dataType: "json",
+        url: "/user/login/", /* end slash */
+        data: {
+            email   : email,
+            password: password,
+        },
+        success: function (data){
+            alert(data.message);
+            location.replace('{% url "main" %}');
+        },
+        error:function (request, status, error){
+            let data = JSON.parse(request.responseText); /* JSON.parse */
+            console.log(data.message);
+            alert(data.message);
+        }
+    });
+});
+
+</script>
 
 </body>
 </html>

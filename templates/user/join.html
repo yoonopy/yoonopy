@@ -47,18 +47,16 @@ $('#button_join').on('click',()=>{
     let user_id = $('#inputUserId').val();
     let password = $('#inputPassword').val();
 
-    console.log('이멜 :' + email + ', 이름 :'  + name + ', 사용자이름 :'  +  user_id + ', 비밀번호 :'  +  password);
-
     $.ajax({
-        url: "/user/join",
-        data: {
-            email   : email,
-            password: password,
-            user_id : user_id,
-            name    : name
-        },
         method: "POST",
         dataType: "json",
+        url: "/user/join/", /* 마지막 슬래시 주의*/
+        data: {
+            email   : email,
+            name    : name,
+            user_id : user_id,
+            password: password,
+        },
         success: function (data){
             alert(data.message);
             location.replace('{% url "login" %}');
