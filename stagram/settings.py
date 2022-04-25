@@ -59,7 +59,7 @@ ROOT_URLCONF = 'stagram.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': ['templates','baseTemplates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -138,3 +138,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # 커스텀 유저 모델
 AUTH_USER_MODEL = 'user.User'
+
+
+# 세션
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True

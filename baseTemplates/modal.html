@@ -1,0 +1,52 @@
+{% load static %}
+
+{% block content %}
+
+
+<!-- modal -->
+<div id="modal_add_feed" class="modal_back">
+    <div class="modal_window">
+        <div class="modal_title">
+            <div class="modal_title_side"></div>
+            <div> 새 게시물 </div>
+            <div class="modal_title_side">
+            <span id="close_modal" class="close_modal material-icons-outlined" style="cursor:pointer">close</span>
+            </div>
+        </div>
+        <div class="modal_content-1" style="vertical-align:middle; display:table-cell;">
+            <span class="content-text">사진을 여기에 끌어다 놓으세요.</span>
+        </div>
+    </div>
+</div>
+
+<!-- modal edit -->
+<div id="modal_edit_feed" class="modal_back">
+    <div class="modal_window">
+        <div class="modal_title">
+            <div class="modal_title_side"></div>
+            <div> 편 집 </div>
+            <div class="modal_title_side">
+                <span id="close_modal" class="close_modal material-icons-outlined" style="cursor:pointer">close</span>
+            </div>
+        </div>
+        <div class="modal_content-2" style="display:flex; flex-direction:row;">
+            <div class="modal_image"></div> 
+            <div>
+                <div class="feed_name">
+                    <div class="profile_box">
+                        <img id="input_profile_image" class="profile_img" src="{% get_media_prefix %}{{ user.profile_image }}"> 
+                    </div>
+                    <span id="input_user_id" class="feed_name_txt">{{ user.user_id }}</span> <!-- 프로필  -->
+                </div>
+                <div>
+                    <textarea id="input_text" class="feed_content_textarea form-control col-sm-5" rows="10" placeholder="내용을 입력하세요..."></textarea>
+                </div>
+                <div style="width: 100%; text-align: center">
+                    <button id="upload_button" type="button" class="btn btn-primary">올리기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

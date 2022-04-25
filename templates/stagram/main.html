@@ -6,24 +6,9 @@
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
 <body>
+    
 <!-- nav -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: fixed; width:100%">
-  <div class="container-fluid" style="justify-content:space-between">
-      <!-- instgram -->
-      <a class="navbar-brand" href="http://127.0.0.1:8000"><span class="material-icons">auto_awesome 인별그램</span></a>
-      <!-- Search -->
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="width:30%">
-      <!-- icon -->
-      <div>
-          <span class="material-icons nav-icon">home_filled</span>
-          <span class="material-icons-outlined nav-icon">send</span>
-          <span id="add_feed" class="material-icons-outlined nav-icon">add_box</span>
-          <span class="material-icons-outlined nav-icon">explore</span>
-          <span class="material-icons-outlined nav-icon">favorite_border</span>
-      </div>
-  </div>
-</nav>
-<!-- and nav -->
+{% include "navbar.html" %}
 
 <!-- body -->
 <div class="main_body">
@@ -50,7 +35,7 @@
            </div>
 
            <div class="feed_like">
-               <p class="feed_txt"> <b>좋아요 {{ feed.like_count }}개</b></p>
+               <p class="feed_txt"> <b>좋아요 {{ feed.like_count }} 개</b></p>
            </div>
            <div class="feed_content">
                <p class="feed_txt"> <b> {{ feed.user_id }} </b> {{ feed.content }}</p>
@@ -69,14 +54,13 @@
        <div class="feed_name" style="justify-content: space-between">
            <div style="display: flex; align-items: center; ">
                <div class="big_profile_box">
-                   <img class="profile_img" src="https://dimg.donga.com/wps/NEWS/IMAGE/2021/09/07/109121848.2.jpg">
+                   <a href="{% url 'profile' %}"><img class="profile_img" src="{% get_media_prefix %}{{ user.profile_image }}"></a>
                </div>
            </div>
            <div class="name_content">
-               <span class="feed_name_txt"> jin.99 </span>
-               <span class="name_content_txt"> 별명 </span>
+               <span class="feed_name_txt">{{ user.user_id }}</span>
+               <span class="name_content_txt">{{ user.name }}</span>
            </div>
-           <a class="link_txt">전환</a>
        </div>
        <!--계정목록 끝-->
    </div>
@@ -85,53 +69,12 @@
 
 
 <!-- modal -->
-<div id="modal_add_feed" class="modal_back">
-    <div class="modal_window">
-        <div class="modal_title">
-            <div class="modal_title_side"></div>
-            <div> 새 게시물 </div>
-            <div class="modal_title_side">
-            <span id="close_modal" class="close_modal material-icons-outlined" style="cursor:pointer">close</span>
-            </div>
-        </div>
-        <div class="modal_content-1" style="vertical-align:middle; display:table-cell;">
-            <span class="content-text">사진을 여기에 끌어다 놓으세요.</span>
-        </div>
-    </div>
-</div>
+{% include "modal.html" %}
 
+<!-- modal_action-->
+{% include "modal_action.html" %}
 
-<!-- modal edit -->
-<div id="modal_edit_feed" class="modal_back">
-    <div class="modal_window">
-        <div class="modal_title">
-            <div class="modal_title_side"></div>
-            <div> 편 집 </div>
-            <div class="modal_title_side">
-                <span id="close_modal" class="close_modal material-icons-outlined" style="cursor:pointer">close</span>
-            </div>
-        </div>
-        <div class="modal_content-2" style="display:flex; flex-direction:row;">
-            <div class="modal_image"></div> 
-            <div>
-                <div class="feed_name">
-                    <div class="profile_box">
-                        <img id="input_profile_image" class="profile_img" src="https://newsimg-hams.hankookilbo.com/2022/03/03/4a69a88d-35f7-4473-9f7b-662e34f179c3.jpg"> <!-- 프로필 이미지 -->
-                    </div>
-                    <span id="input_user_id" class="feed_name_txt">jin.99</span> <!-- 프로필  -->
-                </div>
-                <div>
-                    <textarea id="input_text" class="feed_content_textarea form-control col-sm-5" rows="10" placeholder="내용을 입력하세요..."></textarea>
-                </div>
-                <div style="width: 100%; text-align: center">
-                    <button id="upload_button" type="button" class="btn btn-primary">올리기</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
+<!--
 <script>
 // -------------------------------------- script --------------------------------------
 
@@ -145,44 +88,11 @@ buttonAddFeed.addEventListener("click", e=>{
     modal.style.display = "flex";
     document.body.style.overflowY = "hidden";
 });
-/* 모달 외부영역 클릭시 닫기 */
-// $(document).mouseup(function (e){
-// 	if($(modal).has(e.target).length === 0){
-// 		$(modal).css({
-//             display:'none'
-//         })
-// 	}
-// });
-// 모달 esc로 닫기
-// $(document).keydown(function(e){
-// 	//keyCode 구 브라우저, which 현재 브라우저
-//     var code = e.keyCode || e.which;
-//     if (code == 27) { // 27은 ESC 키번호
-//         $(".modal-1").removeClass("modal_image");
-//         $(".modal-2").removeClass("modal_image");
-//         $(modal).css({
-//             display:'none'
-//         })
-//     }
-// });
-
-// 모달 닫기 코드
-// const btnModal = document.getElementById("close_modal");
-// btnModal.addEventListener("click", e => {
-//     modal.style.display = "none";
-//     document.body.style.overflowY = "visible";
-// });
-// // 모달 닫기 코드
-// const btnModalEdit = document.getElementById("close_modal_edit");
-// btnModalEdit.addEventListener("click", e => {
-//     modalEdit.style.display = "none";
-//     document.body.style.overflowY = "visible";
-// });
 
 // 모달 닫기 코드
 $('.close_modal').on("click", () => {
-        closeModal();
-    });
+    closeModal();
+});
 
 function closeModal() {
     $('.modal_back').css({
@@ -287,7 +197,6 @@ $('#upload_button').on('click', ()=>{
     
     uploadFeed(formData);
     console.log(files[0]);
-
 });
 
 function uploadFeed(fd) {
@@ -310,7 +219,9 @@ function uploadFeed(fd) {
     })
 };
 
+
 </script>
+-->
 
 <!-- Optional JavaScript; choose one of the two! -->
 
@@ -319,8 +230,8 @@ function uploadFeed(fd) {
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
 
-
 </body>
 </html>
 
 {% endblock content %}
+

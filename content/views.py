@@ -8,6 +8,7 @@ from stagram.settings import MEDIA_ROOT
 
 
 class UploadFeed(APIView):
+    	
 	def post(self, request):
 
 		file = request.FILES['file']
@@ -22,12 +23,14 @@ class UploadFeed(APIView):
 				f.write(chunk)
 
 		# data.get 로 파일 받기
-		content = request.data.get('content', )
+		content = request.data.get('content')
 		image   = uuid_name
-		profile_image = request.data.get('profile_image', )
-		user_id = request.data.get('user_id', )
+		profile_image = request.data.get('profile_image')
+		user_id = request.data.get('user_id')
 
 		Feed.objects.create(content=content, image=image,
 		                    profile_image=profile_image, user_id=user_id, like_count=0)
 
 		return Response(status=200)
+
+
