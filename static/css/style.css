@@ -46,7 +46,7 @@
     padding: 0px 10px;
 }
 
-.feed_reply{
+.feed_comment{
     padding: 0px 10px;
     display: flex;
     flex-direction: column;
