@@ -3,7 +3,6 @@ from rest_framework.views import APIView
 from content.models import Feed
 from user.models import User
 from content.models import Like, Bookmark, Comment
-from rest_framework.response import Response
 from .settings import MEDIA_ROOT
 import os
 from uuid import uuid4
@@ -30,6 +29,9 @@ class MainFeed(APIView):
 		feed_list = []
 		for feed in feed_objects:
 			feed_dict = model_to_dict(feed) # Feed 모델을 dict으로 변환 후 추가
+			# User profile_image 검색
+			feed_profile_image = User.objects.filter(email=feed.email).first().profile_image
+			feed_dict['profile_image']  = feed_profile_image
 			# Like 검색
 			if Like.objects.filter(feed_id=feed.id, email=email).exists(): # True & False
 				feed_dict['like']  = 'favorite'

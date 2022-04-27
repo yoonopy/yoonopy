@@ -13,34 +13,34 @@
 <!-- body -->
 <div class="main_body">
 <div class="sub_body">
-        <!-- 프로필 영역 -->
-        <div style="display: flex; flex-direction: row">
-                <div class="main_profile" style="width:150px; height:150px; border-radius:50%; overflow:hidden; margin-top: 30px;">
-                    <img class="profile_img" src="{% get_media_prefix %}{{ user.profile_image }}">
-                </div>
-                <div style="display: flex; flex-direction: column; margin: 40px 60px">
-                    <div class="mb-3" style="display: flex; flex-direction: row;">
-                        <div style="font-size: 24px"> {{ user.user_id }} </div>
-                        <div>
-                            <button id="button_write_feed" type="button"
-                                    style="margin-left: 20px;font-size: 14px;width: 100px; border: 1px solid silver; border-radius: 50em;
-                                    margin-top: 8px; background-color: rgba( 255, 255, 255, 0 );"
-                                    onclick="ajaxFileUpload()">
-                                프로필 편집
-                            </button>
-                            <input id="inputImage" type="file" onchange="ajaxFileChange()" name="profile" style="display:none;">
-                        </div>
-                    </div>
-                    <div class="mb-3" style="display: flex; flex-direction: row; margin-right: 100px">
-                        <div style="margin-right: 30px;"> 게시물 <span style="font-weight: bold"> {{ feed_count }} </span></div>
-                        <div style="margin-right: 30px"> 팔로워 <span style="font-weight: bold"> 0 </span></div>
-                        <div style="margin-right: 30px"> 팔로우 <span style="font-weight: bold"> 0 </span></div>
-                    </div>
-                    <div style="display: flex; flex-direction: row">
-                        <div style="font-size: 18px;font-weight: bold"> {{ user.name }} </div>
-                    </div>
-                </div>
+    <!-- 프로필 영역 -->
+    <div style="display: flex; flex-direction: row">
+        <div class="main_profile" style="width:150px; height:150px; border-radius:50%; overflow:hidden; margin-top: 30px;">
+            <img class="profile_img" src="{% get_media_prefix %}{{ user.profile_image }}">
         </div>
+        <div style="display: flex; flex-direction: column; margin: 40px 60px">
+            <div class="mb-3" style="display: flex; flex-direction: row;">
+                <div style="font-size: 24px"> {{ user.user_id }} </div>
+                <div>
+                    <button id="button_write_feed" type="button"
+                            style="margin-left: 20px;font-size: 14px;width: 100px; border: 1px solid silver; border-radius: 50em;
+                            margin-top: 8px; background-color: rgba( 255, 255, 255, 0 );"
+                            onclick="ajaxFileUpload()">
+                        프로필 편집
+                    </button>
+                    <input id="inputImage" type="file" onchange="ajaxFileChange()" name="profile" style="display:none;">
+                </div>
+            </div>
+            <div class="mb-3" style="display: flex; flex-direction: row; margin-right: 100px">
+                <div style="margin-right: 30px;"> 게시물 <span style="font-weight: bold"> {{ feed_count }} </span></div>
+                <div style="margin-right: 30px"> 팔로워 <span style="font-weight: bold"> 0 </span></div>
+                <div style="margin-right: 30px"> 팔로우 <span style="font-weight: bold"> 0 </span></div>
+            </div>
+            <div style="display: flex; flex-direction: row">
+                <div style="font-size: 18px;font-weight: bold"> {{ user.name }} </div>
+            </div>
+        </div>
+    </div>
 </div>
 </div>
 
@@ -59,26 +59,26 @@ function ajaxFileUpload() {
 };
 
 function ajaxFileChange() {
-        // 파일이 선택되면 업로드
-        let formData = new FormData();
-        formData.append("file", $("#inputImage")[0].files[0]); // 파일형태로
+    // 파일이 선택되면 업로드
+    let formData = new FormData();
+    formData.append("file", $("#inputImage")[0].files[0]); // 파일형태로
 
-        $.ajax({
-                url : "user/update_profile/", // {% url 'update_profile' %} > urls에서 name 으로 설정
-                type : "POST",
-                processData : false,
-                contentType : false,
-                data : formData,
-                dataType: "json",
-         
-                success:function(obj) {
-                        let image_name = obj.image_name;
-                        // 프로필 바꿔줌
-                        $('.profile_img').attr('src', '{% get_media_prefix %}' + image_name);
-                        console.log($('.profile_img').attr('src'));
+    $.ajax({
+        url : "user/update_profile/", // {% url 'update_profile' %} > urls에서 name 으로 설정
+        type : "POST",
+        processData : false,
+        contentType : false,
+        data : formData,
+        dataType: "json",
+    
+        success:function(obj) {
+            let image_name = obj.image_name;
+            // 프로필 바꿔줌
+            $('.profile_img').attr('src', '{% get_media_prefix %}' + image_name);
+            console.log($('.profile_img').attr('src'));
 
-                }
-        });
+        }
+    });
 };
 
 

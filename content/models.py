@@ -35,7 +35,7 @@ class Bookmark(models.Model):
 class Comment(models.Model):
     # 댓글
 	feed_id  = models.IntegerField()
-	email    = models.EmailField()
+	email    = models.EmailField() 
 	user_id  = models.CharField(max_length=30)
 	comment = models.CharField(max_length=300)
 

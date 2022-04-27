@@ -17,8 +17,5 @@ class User(AbstractBaseUser):
 
 	USERNAME_FIELD = 'email'
 
-	def __str__(self):
-		return self.user_id
-
 	class Meta:
 		db_table = "User" # 테이블이름 정하기

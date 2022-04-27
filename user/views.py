@@ -26,7 +26,7 @@ class Login(APIView):
 
 		user = User.objects.filter(email=email).first() # 유저정보
 		if not check_password(password, user.password): # password 확인
-			return Response(status=500, data=dict(message="ps사용자 정보가 잘못되었습니다."))
+			return Response(status=500, data=dict(message="사용자 정보가 잘못되었습니다."))
 
 		## 세션 넣기
 		request.session['email'] = email
@@ -67,7 +67,7 @@ class Join(APIView):
 class Logout(APIView):
 
 	def get(self, request):
-		request.session.flush()
+		request.session.flush() # 세션삭제
 		return render(request, "user/login.html")
 
 

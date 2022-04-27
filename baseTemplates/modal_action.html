@@ -105,7 +105,8 @@ $('#upload_button').on('click', ()=>{
     formData.append('content', content);
     formData.append('profile_image', profile_image);
     formData.append('user_id', user_id);
-
+    formData.append('email', '{{ user.email }}');
+    
     if(image.length <= 0){
         alert("이미지가 없습니다.");
         return
